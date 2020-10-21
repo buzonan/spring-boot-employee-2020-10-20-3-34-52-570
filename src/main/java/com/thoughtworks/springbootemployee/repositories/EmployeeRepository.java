@@ -19,7 +19,13 @@ public class EmployeeRepository {
         return employee;
     }
 
-    public Employee updateEmployee(Employee employee) {
-        return null;
+    public void updateEmployee(int employeeID, Employee updatedEmployee) {
+        employeeList.stream()
+                .filter(employee -> employee.getEmployeeID() == employeeID)
+                .findFirst()
+                .ifPresent(employee -> {
+                    employeeList.remove(employee);
+                    employeeList.add(updatedEmployee);
+                });
     }
 }

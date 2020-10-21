@@ -23,7 +23,7 @@ public class EmployeeService {
         return employee;
     }
 
-    public void updateEmployee(Employee updatedEmployee) {
-        employeeRepository.updateEmployee(updatedEmployee);
+    public void updateEmployee(int employeeID, Employee updatedEmployee) {
+        employeeRepository.updateEmployee(employeeID, updatedEmployee);
     }
 }
