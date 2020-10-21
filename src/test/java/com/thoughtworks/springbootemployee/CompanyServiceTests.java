@@ -25,7 +25,7 @@ public class CompanyServiceTests {
         when(companyRepository.findAll()).thenReturn(expectedCompanyList);
         CompanyService companyService = new CompanyService(companyRepository);
 
-        List<Employee> actualCompanies = companyService.getAll();
+        List<Company> actualCompanies = companyService.getAll();
 
         assertEquals(expectedCompanyList.size(), actualCompanies.size());
     }
