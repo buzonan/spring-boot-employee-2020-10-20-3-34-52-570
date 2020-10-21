@@ -35,4 +35,8 @@ public class EmployeeRepository {
                 .findFirst()
                 .ifPresent(employeeList::remove);
     }
+
+    public Employee findEmployee(int employeeID) {
+        return null;
+    }
 }
