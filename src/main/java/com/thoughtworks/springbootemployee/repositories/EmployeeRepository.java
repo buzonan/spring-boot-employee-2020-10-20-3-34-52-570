@@ -30,5 +30,9 @@ public class EmployeeRepository {
     }
 
     public void deleteEmployee(int employeeID) {
+        employeeList.stream()
+                .filter(employee -> employee.getEmployeeID() == employeeID)
+                .findFirst()
+                .ifPresent(employeeList::remove);
     }
 }
