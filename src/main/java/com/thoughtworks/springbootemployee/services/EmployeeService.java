@@ -40,6 +40,6 @@ public class EmployeeService {
     }
 
     public List<Employee> pagination(int page, int pageSize) {
-        return null;
+        return employeeRepository.pagination(page, pageSize);
     }
 }

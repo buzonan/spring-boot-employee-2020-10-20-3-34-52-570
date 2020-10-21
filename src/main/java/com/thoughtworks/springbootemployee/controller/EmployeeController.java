@@ -34,11 +34,7 @@ public class EmployeeController {
 //    GET       /employees?page=1&pageSize=5  #Page query, page equals 1, pageSize equals 5
     @GetMapping(params = {"page","pageSize"})
     public List<Employee> getPagedEmployees(int page, int pageSize){
-        int pageSkip = (page-1) * pageSize;
-        return employeeList.stream()
-                .skip(pageSkip)
-                .limit(pageSize)
-                .collect(Collectors.toList());
+        return employeeService.pagination(page, pageSize);
     }
 
 //    GET       /employees?gender=male   #screen all male employees

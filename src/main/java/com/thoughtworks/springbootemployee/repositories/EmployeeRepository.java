@@ -51,6 +51,10 @@ public class EmployeeRepository {
     }
 
     public List<Employee> pagination(int page, int pageSize) {
-        return null;
+        int pageSkip = (page-1) * pageSize;
+        return employeeList.stream()
+                .skip(pageSkip)
+                .limit(pageSize)
+                .collect(Collectors.toList());
     }
 }
