@@ -13,4 +13,8 @@ public class CompanyRepository {
     public List<Company> findAll() {
         return companies;
     }
+
+    public Company addCompany(Company expectedCompany) {
+        return null;
+    }
 }

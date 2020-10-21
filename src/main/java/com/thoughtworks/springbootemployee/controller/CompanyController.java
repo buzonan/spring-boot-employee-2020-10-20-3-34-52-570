@@ -23,4 +23,6 @@ public class CompanyController {
     public List<Company> getAllCompanies() {
         return companyService.getAll();
     }
+
+    //GET       /companies/1  #obtain a certain specific company
 }

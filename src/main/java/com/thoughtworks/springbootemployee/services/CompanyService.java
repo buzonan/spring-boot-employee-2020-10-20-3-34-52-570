@@ -17,4 +17,8 @@ public class CompanyService {
     public List<Company> getAll() {
         return companyRepository.findAll();
     }
+
+    public Company createCompany(Company expectedCompany) {
+        return null;
+    }
 }

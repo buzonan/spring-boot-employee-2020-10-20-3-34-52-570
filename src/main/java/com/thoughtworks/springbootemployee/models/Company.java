@@ -8,6 +8,15 @@ public class Company {
     private int employeeCount;
     private List<Employee> employees;
 
+    public Company(int companyID, String companyName, int employeeCount, List<Employee> employees) {
+        this.companyID = companyID;
+        this.companyName = companyName;
+        this.employeeCount = employeeCount;
+        this.employees = employees;
+    }
+
+    public Company() { }
+
     public int getCompanyID() {
         return companyID;
     }

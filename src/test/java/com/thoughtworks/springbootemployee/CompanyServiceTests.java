@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -28,5 +29,18 @@ public class CompanyServiceTests {
         List<Company> actualCompanies = companyService.getAll();
 
         assertEquals(expectedCompanyList.size(), actualCompanies.size());
+    }
+
+    @Test
+    void should_return_compnaies_when_add_company_given_new_company() {
+        CompanyRepository companyRepository = Mockito.mock(CompanyRepository.class);
+        List<Employee> employees = new ArrayList<>();
+        Company expectedCompany = new Company(1,"Tom",0,employees);
+        when(companyRepository.addCompany(expectedCompany)).thenReturn(expectedCompany);
+        CompanyService companyService = new CompanyService(companyRepository);
+
+        Company actualCompany = companyService.createCompany(expectedCompany);
+
+        assertEquals(actualCompany.getCompanyID(), actualCompany.getCompanyID());
     }
 }
