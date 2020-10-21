@@ -26,4 +26,16 @@ public class EmployeeServiceTests {
 
         assertEquals(expectedEmployeeList.size(), actualEmployees.size());
     }
+
+    @Test
+    void should_return_employee_when_add_employee_given_new_employee() {
+        EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
+        Employee expectedEmployee = new Employee(1,"Tom",18,"male",10000);
+        when(employeeRepository.addEmployee(expectedEmployee)).thenReturn(expectedEmployee);
+        EmployeeService employeeService = new EmployeeService(employeeRepository);
+
+        Employee actualEmployee = employeeService.createEmployee(expectedEmployee);
+
+        assertEquals(expectedEmployee.getEmployeeID(), actualEmployee.getEmployeeID());
+    }
 }
