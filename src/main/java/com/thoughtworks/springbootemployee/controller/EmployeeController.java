@@ -22,7 +22,7 @@ public class EmployeeController {
 //    GET       /employees    #obtain employee list
     @GetMapping()
     public List<Employee> getAllEmployees(){
-        return employeeList;
+        return employeeService.getAll();
     }
 
 //    GET       /employees/1  # obtain a certain specific employee
