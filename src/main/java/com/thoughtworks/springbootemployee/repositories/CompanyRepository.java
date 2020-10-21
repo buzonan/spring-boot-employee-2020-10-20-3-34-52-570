@@ -35,4 +35,8 @@ public class CompanyRepository {
                 .orElse(null))
                 .getEmployees();
     }
+
+    public List<Company> pagination(int page, int pageSize) {
+        return null;
+    }
 }

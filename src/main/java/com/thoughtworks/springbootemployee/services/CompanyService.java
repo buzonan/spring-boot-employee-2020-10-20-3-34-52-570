@@ -30,4 +30,8 @@ public class CompanyService {
     public List<Employee> findEmployeeByCompanyID(int companyID) {
         return companyRepository.findEmployeeByCompanyID(companyID);
     }
+
+    public List<Company> pagination(int page, int pageSize) {
+        return null;
+    }
 }

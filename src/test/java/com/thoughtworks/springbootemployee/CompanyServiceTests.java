@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -69,5 +70,23 @@ public class CompanyServiceTests {
         List<Employee> foundEmployees = companyService.findEmployeeByCompanyID(company.getCompanyID());
 
         assertSame(employees.size(), foundEmployees.size());
+    }
+
+    @Test
+    void should_return_employee_list_when_find_employee_given_page_and_page_size() {
+        CompanyRepository companyRepository = Mockito.mock(CompanyRepository.class);
+        List<Employee> employees = new ArrayList<>();
+        List<Company> companies = asList(
+                new Company(1,"Tom",0,employees),
+                new Company(2,"Jerry",0,employees),
+                new Company(3,"Nisa",0,employees),
+                new Company(4,"SQUENIX",0,employees),
+                new Company(5,"Sega",0,employees));
+        when(companyRepository.pagination(1,5)).thenReturn(companies);
+        CompanyService companyService = new CompanyService(companyRepository);
+
+        List<Company> pagedCompanies = companyService.pagination(1,5);
+
+        assertSame(companies.size(), pagedCompanies.size());
     }
 }
