@@ -28,10 +28,7 @@ public class EmployeeController {
 //    GET       /employees/1  # obtain a certain specific employee
     @GetMapping("/{employeeID}")
     public Employee getEmployee(@PathVariable int employeeID){
-        return employeeList.stream()
-                .filter(employee -> employee.getEmployeeID() == employeeID)
-                .findFirst()
-                .orElse(null);
+        return employeeService.findEmployee(employeeID);
     }
 
 //    GET       /employees?page=1&pageSize=5  #Page query, page equals 1, pageSize equals 5
