@@ -54,4 +54,8 @@ public class CompanyRepository {
                     companies.add(updatedCompany);
                 });
     }
+
+    public void deleteEmployees(int companyID) {
+
+    }
 }

@@ -104,4 +104,17 @@ public class CompanyServiceTests {
 
         Mockito.verify(companyRepository).updateCompany(company.getCompanyID(), updatedCompany);
     }
+
+    @Test
+    void should_return_when_delete_employees_given_company_id() {
+        CompanyRepository companyRepository = Mockito.mock(CompanyRepository.class);
+        List<Employee> employees = new ArrayList<>();
+        Company company = new Company(1,"Tom",0,employees);
+        when(companyRepository.addCompany(company)).thenReturn(company);
+        CompanyService companyService = new CompanyService(companyRepository);
+
+        companyService.deleteEmployees(company.getCompanyID());
+
+        Mockito.verify(companyRepository).deleteEmployees(company.getCompanyID());
+    }
 }
