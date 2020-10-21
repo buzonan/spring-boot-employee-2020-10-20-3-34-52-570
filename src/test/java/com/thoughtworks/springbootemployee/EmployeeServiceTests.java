@@ -45,11 +45,12 @@ public class EmployeeServiceTests {
         EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
         Employee employee = new Employee(1,"Tom",18,"male",10000);
         Employee updatedEmployee = new Employee(1,"Tom",18,"male",12000);
-        when(employeeRepository.updateEmployee(employee)).thenReturn(updatedEmployee);
+
+        when(employeeRepository.addEmployee(employee)).thenReturn(updatedEmployee);
         EmployeeService employeeService = new EmployeeService(employeeRepository);
 
-        employeeService.updateEmployee(updatedEmployee);
+        employeeService.updateEmployee(employee.getEmployeeID(), updatedEmployee);
 
-        assertEquals(employee.getSalary(), updatedEmployee.getSalary());
+        Mockito.verify(employeeRepository).updateEmployee(employee.getEmployeeID(), updatedEmployee);
     }
 }
