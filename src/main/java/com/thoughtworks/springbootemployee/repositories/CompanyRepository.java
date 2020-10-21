@@ -44,4 +44,8 @@ public class CompanyRepository {
                 .limit(pageSize)
                 .collect(Collectors.toList());
     }
+
+    public void updateCompany(int companyID, Company updatedCompany) {
+
+    }
 }

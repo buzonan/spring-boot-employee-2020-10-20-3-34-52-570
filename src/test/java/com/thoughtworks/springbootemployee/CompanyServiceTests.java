@@ -89,4 +89,19 @@ public class CompanyServiceTests {
 
         assertSame(companies.size(), pagedCompanies.size());
     }
+
+    @Test
+    void should_return_company_when_update_company_given_new_company() {
+        CompanyRepository companyRepository = Mockito.mock(CompanyRepository.class);
+        List<Employee> employees = new ArrayList<>();
+        Company company = new Company(1,"Tom",0,employees);
+        Company updatedCompany = new Company(1,"Jerry",0,employees);
+
+        when(companyRepository.addCompany(company)).thenReturn(updatedCompany);
+        CompanyService companyService = new CompanyService(companyRepository);
+
+        companyService.updateCompany(company.getCompanyID(), updatedCompany);
+
+        Mockito.verify(companyRepository).updateCompany(company.getCompanyID(), updatedCompany);
+    }
 }

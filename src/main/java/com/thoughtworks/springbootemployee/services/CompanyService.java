@@ -34,4 +34,8 @@ public class CompanyService {
     public List<Company> pagination(int page, int pageSize) {
         return companyRepository.pagination(page, pageSize);
     }
+
+    public void updateCompany(int companyID, Company updatedCompany) {
+
+    }
 }
