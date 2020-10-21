@@ -36,6 +36,6 @@ public class CompanyService {
     }
 
     public void updateCompany(int companyID, Company updatedCompany) {
-
+        companyRepository.updateCompany(companyID,updatedCompany);
     }
 }

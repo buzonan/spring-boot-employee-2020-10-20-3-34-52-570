@@ -44,4 +44,9 @@ public class CompanyController {
     public List<Company> getPagedCompanies(int page, int pageSize){
         return companyService.pagination(page, pageSize);
     }
+
+    @PutMapping("/{companyID}")
+    public void updateCompany(@PathVariable int companyID, @RequestBody Company newComp){
+        companyService.updateCompany(companyID, newComp);
+    }
 }

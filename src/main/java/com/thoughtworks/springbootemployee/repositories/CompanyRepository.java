@@ -46,6 +46,12 @@ public class CompanyRepository {
     }
 
     public void updateCompany(int companyID, Company updatedCompany) {
-
+        companies.stream()
+                .filter(company -> company.getCompanyID() == companyID)
+                .findFirst()
+                .ifPresent(company -> {
+                    companies.remove(company);
+                    companies.add(updatedCompany);
+                });
     }
 }
