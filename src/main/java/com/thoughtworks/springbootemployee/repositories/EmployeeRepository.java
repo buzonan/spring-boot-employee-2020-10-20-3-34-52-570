@@ -37,6 +37,13 @@ public class EmployeeRepository {
     }
 
     public Employee findEmployee(int employeeID) {
+        return employeeList.stream()
+                .filter(employee -> employee.getEmployeeID() == employeeID)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public List<Employee> findEmployeesByGender(String gender) {
         return null;
     }
 }

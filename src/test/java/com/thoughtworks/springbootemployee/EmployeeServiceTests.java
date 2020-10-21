@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -76,5 +77,21 @@ public class EmployeeServiceTests {
         Employee foundEmployee = employeeService.findEmployee(employee.getEmployeeID());
 
         assertSame(employee, foundEmployee);
+    }
+
+    @Test
+    void should_return_employee_list_when_find_employee_given_employee_gender() {
+        EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
+        List<Employee> employees =
+                Arrays.asList(
+                        new Employee(1,"Tom",18,"male",10000),
+                        new Employee(2,"Toots",18,"male",10000)
+                );
+        when(employeeRepository.findEmployeesByGender("male")).thenReturn(employees);
+        EmployeeService employeeService = new EmployeeService(employeeRepository);
+
+        List<Employee> foundEmployees = employeeService.findEmployeesByGender("male");
+
+        assertSame(employees.size(), foundEmployees.size());
     }
 }
