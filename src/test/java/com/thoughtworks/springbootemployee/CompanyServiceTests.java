@@ -53,8 +53,10 @@ public class CompanyServiceTests {
         when(companyRepository.findCompany(company.getCompanyID())).thenReturn(company);
         CompanyService companyService = new CompanyService(companyRepository);
 
-        Company foundCompany = companyService.findCompany(company);
+        Company foundCompany = companyService.findCompany(company.getCompanyID());
 
         assertSame(company, foundCompany);
     }
+
+    
 }

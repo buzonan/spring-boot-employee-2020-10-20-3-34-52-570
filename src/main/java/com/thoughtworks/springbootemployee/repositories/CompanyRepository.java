@@ -20,6 +20,9 @@ public class CompanyRepository {
     }
 
     public Company findCompany(int companyID) {
-        return null;
+        return companies.stream()
+                .filter(company -> company.getCompanyID() == companyID)
+                .findFirst()
+                .orElse(null);
     }
 }

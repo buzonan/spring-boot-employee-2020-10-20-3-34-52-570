@@ -22,7 +22,7 @@ public class CompanyService {
         return companyRepository.addCompany(expectedCompany);
     }
 
-    public Company findCompany(Company company) {
-        return null;
+    public Company findCompany(int companyID) {
+        return companyRepository.findCompany(companyID);
     }
 }
