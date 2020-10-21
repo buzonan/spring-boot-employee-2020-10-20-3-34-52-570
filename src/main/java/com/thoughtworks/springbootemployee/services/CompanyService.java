@@ -32,6 +32,6 @@ public class CompanyService {
     }
 
     public List<Company> pagination(int page, int pageSize) {
-        return null;
+        return companyRepository.pagination(page, pageSize);
     }
 }

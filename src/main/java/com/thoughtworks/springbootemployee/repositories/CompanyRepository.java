@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Repository
 public class CompanyRepository {
@@ -37,6 +38,10 @@ public class CompanyRepository {
     }
 
     public List<Company> pagination(int page, int pageSize) {
-        return null;
+        int pageSkip = (page-1) * pageSize;
+        return companies.stream()
+                .skip(pageSkip)
+                .limit(pageSize)
+                .collect(Collectors.toList());
     }
 }
