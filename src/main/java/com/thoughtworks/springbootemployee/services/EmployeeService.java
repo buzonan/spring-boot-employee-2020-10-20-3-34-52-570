@@ -38,4 +38,8 @@ public class EmployeeService {
     public List<Employee> findEmployeesByGender(String gender) {
         return employeeRepository.findEmployeesByGender(gender);
     }
+
+    public List<Employee> pagination(int page, int pageSize) {
+        return null;
+    }
 }

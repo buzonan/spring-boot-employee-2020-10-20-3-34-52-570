@@ -94,4 +94,23 @@ public class EmployeeServiceTests {
 
         assertSame(employees.size(), foundEmployees.size());
     }
+
+    @Test
+    void should_return_employee_list_when_find_employee_given_page_and_page_size() {
+        EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
+        List<Employee> employees =
+                Arrays.asList(
+                        new Employee(1,"Tom",18,"male",10000),
+                        new Employee(2,"Toots",18,"female",10000),
+                        new Employee(3,"Jerry",18,"male",10000),
+                        new Employee(4,"Nibbles",18,"male",10000),
+                        new Employee(5,"Liz",18,"female",10000)
+                );
+        when(employeeRepository.pagination(1,5)).thenReturn(employees);
+        EmployeeService employeeService = new EmployeeService(employeeRepository);
+
+        List<Employee> pagedEmployees = employeeService.pagination(1,5);
+
+        assertSame(employees.size(), pagedEmployees.size());
+    }
 }
