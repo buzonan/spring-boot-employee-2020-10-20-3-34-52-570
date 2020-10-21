@@ -6,6 +6,7 @@ import com.thoughtworks.springbootemployee.repositories.CompanyRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CompanyService {
@@ -16,15 +17,15 @@ public class CompanyService {
     }
 
     public List<Company> getAll() {
-        return companyRepository.findAll();
+        return updateEmployeeCounts(companyRepository.findAll());
     }
 
     public Company createCompany(Company expectedCompany) {
-        return companyRepository.addCompany(expectedCompany);
+        return updateEmployeeCount(expectedCompany);
     }
 
     public Company findCompany(int companyID) {
-        return companyRepository.findCompany(companyID);
+        return updateEmployeeCount(companyRepository.findCompany(companyID));
     }
 
     public List<Employee> findEmployeeByCompanyID(int companyID) {
@@ -32,14 +33,25 @@ public class CompanyService {
     }
 
     public List<Company> pagination(int page, int pageSize) {
-        return companyRepository.pagination(page, pageSize);
+        return updateEmployeeCounts(companyRepository.pagination(page, pageSize));
     }
 
     public void updateCompany(int companyID, Company updatedCompany) {
+        updatedCompany.updateEmployeeCount();
         companyRepository.updateCompany(companyID,updatedCompany);
     }
 
     public void deleteEmployees(int companyID) {
         companyRepository.deleteEmployees(companyID);
+    }
+
+    public List<Company> updateEmployeeCounts(List<Company> companies){
+        companies.forEach(Company::updateEmployeeCount);
+        return companies;
+    }
+
+    public Company updateEmployeeCount(Company company){
+        company.updateEmployeeCount();
+        return company;
     }
 }

@@ -8,11 +8,11 @@ public class Company {
     private int employeeCount;
     private List<Employee> employees;
 
-    public Company(int companyID, String companyName, int employeeCount, List<Employee> employees) {
+    public Company(int companyID, String companyName, List<Employee> employees) {
         this.companyID = companyID;
         this.companyName = companyName;
-        this.employeeCount = employeeCount;
         this.employees = employees;
+        updateEmployeeCount();
     }
 
     public Company() { }
@@ -28,6 +28,8 @@ public class Company {
     public int getEmployeeCount() {
         return employeeCount;
     }
+
+    public void updateEmployeeCount(){ employeeCount = (employees!=null ? employees.size() : 0); }
 
     public List<Employee> getEmployees() {
         return employees;

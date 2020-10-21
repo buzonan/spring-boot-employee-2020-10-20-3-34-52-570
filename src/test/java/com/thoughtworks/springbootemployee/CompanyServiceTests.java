@@ -37,7 +37,7 @@ public class CompanyServiceTests {
     void should_return_companies_when_add_company_given_new_company() {
         CompanyRepository companyRepository = Mockito.mock(CompanyRepository.class);
         List<Employee> employees = new ArrayList<>();
-        Company expectedCompany = new Company(1,"Tom",0,employees);
+        Company expectedCompany = new Company(1,"Tom",employees);
         when(companyRepository.addCompany(expectedCompany)).thenReturn(expectedCompany);
         CompanyService companyService = new CompanyService(companyRepository);
 
@@ -50,7 +50,7 @@ public class CompanyServiceTests {
     void should_return_company_when_get_company_given_company_id() {
         CompanyRepository companyRepository = Mockito.mock(CompanyRepository.class);
         List<Employee> employees = new ArrayList<>();
-        Company company = new Company(1,"Tom",0,employees);
+        Company company = new Company(1,"Tom",employees);
         when(companyRepository.findCompany(company.getCompanyID())).thenReturn(company);
         CompanyService companyService = new CompanyService(companyRepository);
 
@@ -63,7 +63,7 @@ public class CompanyServiceTests {
     void should_return_employees_when_get_company_given_company_id() {
         CompanyRepository companyRepository = Mockito.mock(CompanyRepository.class);
         List<Employee> employees = new ArrayList<>();
-        Company company = new Company(1,"Tom",0,employees);
+        Company company = new Company(1,"Tom",employees);
         when(companyRepository.findEmployeeByCompanyID(company.getCompanyID())).thenReturn(employees);
         CompanyService companyService = new CompanyService(companyRepository);
 
@@ -77,11 +77,11 @@ public class CompanyServiceTests {
         CompanyRepository companyRepository = Mockito.mock(CompanyRepository.class);
         List<Employee> employees = new ArrayList<>();
         List<Company> companies = asList(
-                new Company(1,"Tom",0,employees),
-                new Company(2,"Jerry",0,employees),
-                new Company(3,"Nisa",0,employees),
-                new Company(4,"SQUENIX",0,employees),
-                new Company(5,"Sega",0,employees));
+                new Company(1,"Tom",employees),
+                new Company(2,"Jerry",employees),
+                new Company(3,"Nisa",employees),
+                new Company(4,"SQUENIX",employees),
+                new Company(5,"Sega",employees));
         when(companyRepository.pagination(1,5)).thenReturn(companies);
         CompanyService companyService = new CompanyService(companyRepository);
 
@@ -94,8 +94,8 @@ public class CompanyServiceTests {
     void should_return_company_when_update_company_given_new_company() {
         CompanyRepository companyRepository = Mockito.mock(CompanyRepository.class);
         List<Employee> employees = new ArrayList<>();
-        Company company = new Company(1,"Tom",0,employees);
-        Company updatedCompany = new Company(1,"Jerry",0,employees);
+        Company company = new Company(1,"Tom",employees);
+        Company updatedCompany = new Company(1,"Jerry",employees);
 
         when(companyRepository.addCompany(company)).thenReturn(updatedCompany);
         CompanyService companyService = new CompanyService(companyRepository);
@@ -109,7 +109,7 @@ public class CompanyServiceTests {
     void should_return_when_delete_employees_given_company_id() {
         CompanyRepository companyRepository = Mockito.mock(CompanyRepository.class);
         List<Employee> employees = new ArrayList<>();
-        Company company = new Company(1,"Tom",0,employees);
+        Company company = new Company(1,"Tom",employees);
         when(companyRepository.addCompany(company)).thenReturn(company);
         CompanyService companyService = new CompanyService(companyRepository);
 
