@@ -18,4 +18,8 @@ public class EmployeeRepository {
         employeeList.add(employee);
         return employee;
     }
+
+    public Employee updateEmployee(Employee employee) {
+        return null;
+    }
 }

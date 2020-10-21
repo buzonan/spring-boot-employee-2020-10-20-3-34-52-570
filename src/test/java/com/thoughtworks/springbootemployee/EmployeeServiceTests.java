@@ -11,6 +11,7 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -37,5 +38,18 @@ public class EmployeeServiceTests {
         Employee actualEmployee = employeeService.createEmployee(expectedEmployee);
 
         assertEquals(expectedEmployee.getEmployeeID(), actualEmployee.getEmployeeID());
+    }
+
+    @Test
+    void should_return_employee_when_update_employee_given_new_employee() {
+        EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
+        Employee employee = new Employee(1,"Tom",18,"male",10000);
+        Employee updatedEmployee = new Employee(1,"Tom",18,"male",12000);
+        when(employeeRepository.updateEmployee(employee)).thenReturn(updatedEmployee);
+        EmployeeService employeeService = new EmployeeService(employeeRepository);
+
+        employeeService.updateEmployee(updatedEmployee);
+
+        assertEquals(employee.getSalary(), updatedEmployee.getSalary());
     }
 }

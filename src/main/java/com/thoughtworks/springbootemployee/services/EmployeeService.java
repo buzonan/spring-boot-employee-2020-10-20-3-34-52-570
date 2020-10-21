@@ -22,4 +22,8 @@ public class EmployeeService {
         employeeRepository.addEmployee(employee);
         return employee;
     }
+
+    public void updateEmployee(Employee updatedEmployee) {
+        employeeRepository.updateEmployee(updatedEmployee);
+    }
 }
