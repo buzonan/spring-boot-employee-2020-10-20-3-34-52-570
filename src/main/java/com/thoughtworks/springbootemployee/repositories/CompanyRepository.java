@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class CompanyRepository {
@@ -28,6 +29,10 @@ public class CompanyRepository {
     }
 
     public List<Employee> findEmployeeByCompanyID(int companyID) {
-        return null;
+        return Objects.requireNonNull(companies.stream()
+                .filter(company -> company.getCompanyID() == companyID)
+                .findFirst()
+                .orElse(null))
+                .getEmployees();
     }
 }
