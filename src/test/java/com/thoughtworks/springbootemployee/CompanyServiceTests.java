@@ -46,7 +46,7 @@ public class CompanyServiceTests {
     }
 
     @Test
-    void should_return_companys_when_get_company_given_company_id() {
+    void should_return_company_when_get_company_given_company_id() {
         CompanyRepository companyRepository = Mockito.mock(CompanyRepository.class);
         List<Employee> employees = new ArrayList<>();
         Company company = new Company(1,"Tom",0,employees);
@@ -58,5 +58,16 @@ public class CompanyServiceTests {
         assertSame(company, foundCompany);
     }
 
-    
+    @Test
+    void should_return_employees_when_get_company_given_company_id() {
+        CompanyRepository companyRepository = Mockito.mock(CompanyRepository.class);
+        List<Employee> employees = new ArrayList<>();
+        Company company = new Company(1,"Tom",0,employees);
+        when(companyRepository.findEmployeeByCompanyID(company.getCompanyID())).thenReturn(employees);
+        CompanyService companyService = new CompanyService(companyRepository);
+
+        List<Employee> foundEmployees = companyService.findEmployeeByCompanyID(company.getCompanyID());
+
+        assertSame(employees.size(), foundEmployees.size());
+    }
 }
