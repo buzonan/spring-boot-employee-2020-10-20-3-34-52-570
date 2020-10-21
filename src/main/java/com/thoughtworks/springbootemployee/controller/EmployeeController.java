@@ -44,9 +44,7 @@ public class EmployeeController {
 //    GET       /employees?gender=male   #screen all male employees
     @GetMapping(params = "gender")
     public List<Employee> getAllMaleEmployees(String gender){
-        return employeeList.stream()
-                .filter(employee -> employee.getGender().equals(gender))
-                .collect(Collectors.toList());
+        return employeeService.findEmployeesByGender(gender);
     }
 
 //    POST      /employees    # add an employee
