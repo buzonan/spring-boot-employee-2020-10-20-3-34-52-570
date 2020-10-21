@@ -56,10 +56,7 @@ public class EmployeeController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public Employee createEmployee(@RequestBody Employee employee){
-        //Employee newEmploy = new Employee(employee.)
-        employeeList.add(employee);
-
-        return employee;
+        return employeeService.createEmployee(employee);
     }
 
 //    PUT       /employees/1  #update an employee
