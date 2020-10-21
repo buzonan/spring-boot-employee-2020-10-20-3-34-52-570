@@ -53,4 +53,16 @@ public class EmployeeServiceTests {
 
         Mockito.verify(employeeRepository).updateEmployee(employee.getEmployeeID(), updatedEmployee);
     }
+
+    @Test
+    void should_return_when_delete_employee_given_employee_id() {
+        EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
+        Employee employee = new Employee(1,"Tom",18,"male",10000);
+        when(employeeRepository.addEmployee(employee)).thenReturn(employee);
+        EmployeeService employeeService = new EmployeeService(employeeRepository);
+
+        employeeService.deleteEmployee(employee.getEmployeeID());
+
+        Mockito.verify(employeeRepository).deleteEmployee(employee.getEmployeeID());
+    }
 }

@@ -28,4 +28,7 @@ public class EmployeeRepository {
                     employeeList.add(updatedEmployee);
                 });
     }
+
+    public void deleteEmployee(int employeeID) {
+    }
 }
