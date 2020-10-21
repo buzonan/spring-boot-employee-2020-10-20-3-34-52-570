@@ -15,6 +15,7 @@ public class CompanyRepository {
     }
 
     public Company addCompany(Company expectedCompany) {
-        return null;
+        companies.add(expectedCompany);
+        return expectedCompany;
     }
 }

@@ -32,7 +32,7 @@ public class CompanyServiceTests {
     }
 
     @Test
-    void should_return_compnaies_when_add_company_given_new_company() {
+    void should_return_companies_when_add_company_given_new_company() {
         CompanyRepository companyRepository = Mockito.mock(CompanyRepository.class);
         List<Employee> employees = new ArrayList<>();
         Company expectedCompany = new Company(1,"Tom",0,employees);
