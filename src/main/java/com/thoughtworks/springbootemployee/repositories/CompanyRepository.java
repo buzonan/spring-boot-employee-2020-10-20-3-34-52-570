@@ -18,4 +18,8 @@ public class CompanyRepository {
         companies.add(expectedCompany);
         return expectedCompany;
     }
+
+    public Company findCompany(int companyID) {
+        return null;
+    }
 }

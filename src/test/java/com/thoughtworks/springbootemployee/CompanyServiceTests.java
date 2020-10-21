@@ -15,6 +15,7 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -42,5 +43,18 @@ public class CompanyServiceTests {
         Company actualCompany = companyService.createCompany(expectedCompany);
 
         assertEquals(actualCompany.getCompanyID(), actualCompany.getCompanyID());
+    }
+
+    @Test
+    void should_return_companys_when_get_company_given_company_id() {
+        CompanyRepository companyRepository = Mockito.mock(CompanyRepository.class);
+        List<Employee> employees = new ArrayList<>();
+        Company company = new Company(1,"Tom",0,employees);
+        when(companyRepository.findCompany(company.getCompanyID())).thenReturn(company);
+        CompanyService companyService = new CompanyService(companyRepository);
+
+        Company foundCompany = companyService.findCompany(company);
+
+        assertSame(company, foundCompany);
     }
 }
