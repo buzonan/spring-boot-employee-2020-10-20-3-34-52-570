@@ -5,6 +5,7 @@ import com.thoughtworks.springbootemployee.models.Employee;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -40,6 +41,7 @@ public class CompanyRepository {
     public List<Company> pagination(int page, int pageSize) {
         int pageSkip = (page-1) * pageSize;
         return companies.stream()
+                .sorted(Comparator.comparing(Company::getCompanyID))
                 .skip(pageSkip)
                 .limit(pageSize)
                 .collect(Collectors.toList());

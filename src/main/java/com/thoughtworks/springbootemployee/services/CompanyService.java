@@ -6,7 +6,6 @@ import com.thoughtworks.springbootemployee.repositories.CompanyRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CompanyService {
@@ -25,6 +24,7 @@ public class CompanyService {
     }
 
     public Company findCompany(int companyID) {
+
         return updateEmployeeCount(companyRepository.findCompany(companyID));
     }
 

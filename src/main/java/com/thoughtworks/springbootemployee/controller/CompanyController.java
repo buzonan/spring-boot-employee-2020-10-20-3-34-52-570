@@ -17,13 +17,11 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
-    //GET       /companies    #obtain company list
     @GetMapping()
     public List<Company> getAllCompanies() {
         return companyService.getAll();
     }
 
-    //GET       /companies/1  #obtain a certain specific company
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public Company create(@RequestBody Company company){

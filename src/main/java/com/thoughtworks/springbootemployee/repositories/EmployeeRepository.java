@@ -37,7 +37,7 @@ public class EmployeeRepository {
                 .ifPresent(employeeList::remove);
     }
 
-    public Employee findEmployee(int employeeID) {
+    public Employee findEmployeeByID(int employeeID) {
         return employeeList.stream()
                 .filter(employee -> employee.getEmployeeID() == employeeID)
                 .findFirst()

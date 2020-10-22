@@ -32,7 +32,7 @@ public class EmployeeService {
     }
 
     public Employee findEmployee(int employeeID) {
-        return employeeRepository.findEmployee(employeeID);
+        return employeeRepository.findEmployeeByID(employeeID);
     }
 
     public List<Employee> findEmployeesByGender(String gender) {
