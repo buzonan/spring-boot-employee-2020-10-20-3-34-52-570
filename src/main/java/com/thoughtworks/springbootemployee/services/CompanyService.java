@@ -24,17 +24,18 @@ public class CompanyService {
     }
 
     public Company createCompany(Company companyResponseBody) {
-        Company company = new Company(companyResponseBody.getCompanyName());
-        Company savedCompany = companyRepository.save(company);
-        int savedCompanyId = savedCompany.getCompanyId();
-        companyResponseBody.getEmployees()
-                .stream()
-                .filter(employee -> !employeeRepository.findById(employee.getEmployeeId()).isPresent())
-                .forEach(employee -> {
-                        employee.setCompanyId(savedCompanyId);
-                        employeeRepository.save(employee);
-                });
-        return companyRepository.findById(savedCompanyId).orElse(null);
+//        Company company = new Company(companyResponseBody.getCompanyName());
+//        Company savedCompany = companyRepository.save(company);
+//        int savedCompanyId = savedCompany.getCompanyId();
+//        companyResponseBody.getEmployees()
+//                .stream()
+//                .filter(employee -> !employeeRepository.findById(employee.getEmployeeId()).isPresent())
+//                .forEach(employee -> {
+//                        employee.setCompanyId(savedCompanyId);
+//                        employeeRepository.save(employee);
+//                });
+//        return companyRepository.findById(savedCompanyId).orElse(null);
+    return companyRepository.save(companyResponseBody);
     }
 
     public Company findCompany(int companyId) {
