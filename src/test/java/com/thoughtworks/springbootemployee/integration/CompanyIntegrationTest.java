@@ -5,12 +5,16 @@ import com.thoughtworks.springbootemployee.models.Employee;
 import com.thoughtworks.springbootemployee.repositories.CompanyRepository;
 import com.thoughtworks.springbootemployee.repositories.EmployeeRepository;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -18,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class CompanyIntegrationTest {
 
     public static final String COMPANIES_URI = "/companies";
@@ -129,6 +134,20 @@ public class CompanyIntegrationTest {
         //then
         mockMvc.perform(get(COMPANIES_URI + "?page="+page+"&pageSize="+pageSize))
                 .andExpect(jsonPath("$.length()").value(2));
+    }
+
+    @Test
+    void should_delete_employee_when_delete_employee_given_employee_id() throws Exception {
+        //given
+        Company company = companyRepository.save(new Company("SVG"));
+
+
+        //when
+        mockMvc.perform(delete(COMPANIES_URI + "/" + company.getCompanyId()));
+
+        //then
+        List<Employee> employeeList = employeeRepository.findAll();
+        Assertions.assertEquals(0, employeeList.size());
     }
 
 }
