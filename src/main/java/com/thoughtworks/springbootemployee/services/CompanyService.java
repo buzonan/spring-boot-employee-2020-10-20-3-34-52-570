@@ -3,6 +3,9 @@ package com.thoughtworks.springbootemployee.services;
 import com.thoughtworks.springbootemployee.models.Company;
 import com.thoughtworks.springbootemployee.models.Employee;
 import com.thoughtworks.springbootemployee.repositories.CompanyRepository;
+import com.thoughtworks.springbootemployee.repositories.EmployeeRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,49 +13,42 @@ import java.util.List;
 @Service
 public class CompanyService {
     private final CompanyRepository companyRepository;
+    private final EmployeeRepository employeeRepository;
 
-    public CompanyService(CompanyRepository companyRepository) {
+    public CompanyService(CompanyRepository companyRepository, EmployeeRepository employeeRepository) {
         this.companyRepository = companyRepository;
+        this.employeeRepository = employeeRepository;
     }
 
-    public List<Company> getAll() {
-        return companyRepository.findAll();
+    public List<Company> getAll() { return companyRepository.findAll();
     }
 
-    public Company createCompany(Company expectedCompany) {
-        return updateEmployeeCount(expectedCompany);
+    public Company createCompany(Company company) {
+        return companyRepository.save(company);
     }
 
-    public Company findCompany(int companyID) {
-
-        return updateEmployeeCount(companyRepository.findCompany(companyID));
+    public Company findCompany(int companyId) {
+        return companyRepository.findById(companyId).orElse(null);
     }
 
-    public List<Employee> findEmployeeByCompanyID(int companyID) {
-        return companyRepository.findEmployeeByCompanyID(companyID);
+    public List<Employee> findEmployeeBycompanyId(int companyId) {
+        return employeeRepository.findByCompanyId(companyId);
     }
 
-    public List<Company> pagination(int page, int pageSize) {
-        return updateEmployeeCounts(companyRepository.pagination(page, pageSize));
+    public List<Company> getCompanyByPage(int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page,pageSize);
+        return companyRepository.findAll(pageable).toList();
     }
 
-    public void updateCompany(int companyID, Company updatedCompany) {
-        updatedCompany.updateEmployeeCount();
-        companyRepository.updateCompany(companyID,updatedCompany);
+    public Company updateCompany(int companyId, Company updatedCompany) {
+        Company company = findCompany(companyId);
+        company.setCompanyName(updatedCompany.getCompanyName());
+        company.setEmployees(updatedCompany.getEmployees());
+        companyRepository.save(company);
+        return updatedCompany;
     }
 
-    public void deleteEmployees(int companyID) {
-        companyRepository.deleteEmployees(companyID);
-    }
-
-    private List<Company> updateEmployeeCounts(List<Company> companies){
-        companies.forEach(Company::updateEmployeeCount);
-        return companies;
-    }
-
-    private Company updateEmployeeCount(Company company){
-        company.updateEmployeeCount();
-        companyRepository.addCompany(company);
-        return company;
+    public void deleteEmployees(int companyId) {
+        companyRepository.deleteById(companyId);
     }
 }

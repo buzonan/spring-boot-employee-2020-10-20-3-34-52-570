@@ -27,7 +27,6 @@ public class EmployeeService {
 
     public Employee updateEmployee(int employeeID, Employee updatedEmployee) {
         Employee employee = findEmployee(employeeID);
-        employee.setEmployeeId(updatedEmployee.getEmployeeId());
         employee.setName(updatedEmployee.getName());
         employee.setAge(updatedEmployee.getAge());
         employee.setGender(updatedEmployee.getGender());
@@ -49,7 +48,7 @@ public class EmployeeService {
         return employeeRepository.findByGender(gender);
     }
 
-    public List<Employee> pagination(int page, int pageSize) {
+    public List<Employee> getEmployeeByPage(int page, int pageSize) {
         Pageable pageable = PageRequest.of(page,pageSize);
         return employeeRepository.findAll(pageable).toList();
     }

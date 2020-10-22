@@ -28,28 +28,28 @@ public class CompanyController {
         return companyService.createCompany(company);
     }
 
-    @GetMapping("/{companyID}")
-    public Company getCompany(@PathVariable int companyID){
-        return companyService.findCompany(companyID);
+    @GetMapping("/{companyId}")
+    public Company getCompany(@PathVariable int companyId){
+        return companyService.findCompany(companyId);
     }
 
-    @GetMapping("/{companyID}/employees")
-    public List<Employee> getEmployeesByCompanyID(@PathVariable int companyID){
-        return companyService.findEmployeeByCompanyID(companyID);
+    @GetMapping("/{companyId}/employees")
+    public List<Employee> getEmployeesByCompanyID(@PathVariable int companyId){
+        return companyService.findEmployeeBycompanyId(companyId);
     }
 
     @GetMapping(params = {"page","pageSize"})
     public List<Company> getPagedCompanies(int page, int pageSize){
-        return companyService.pagination(page, pageSize);
+        return companyService.getCompanyByPage(page, pageSize);
     }
 
-    @PutMapping("/{companyID}")
-    public void updateCompany(@PathVariable int companyID, @RequestBody Company newComp){
-        companyService.updateCompany(companyID, newComp);
+    @PutMapping("/{companyId}")
+    public Company updateCompany(@PathVariable int companyId, @RequestBody Company newComp){
+        return companyService.updateCompany(companyId, newComp);
     }
 
-    @DeleteMapping("/{companyID}")
-    public void deleteEmployee(@PathVariable int companyID){
-        companyService.deleteEmployees(companyID);
+    @DeleteMapping("/{companyId}")
+    public void deleteEmployee(@PathVariable int companyId){
+        companyService.deleteEmployees(companyId);
     }
 }
