@@ -169,4 +169,20 @@ public class EmployeeIntegrationTest {
         Assertions.assertEquals(2, employeeList.size());
         Assertions.assertEquals("female", employeeList.get(0).getGender());
     }
+
+    @Test
+    void should_delete_employee_when_delete_employee_given_employee_id() throws Exception {
+        //given
+        Employee employee = employeeRepository.save(new Employee(4, "Alice", 22, "female",  5000));
+        employeeRepository.save(new Employee(5, "Tom", 18, "male",  1000));
+
+        //when
+        mockMvc.perform(delete(EMPLOYEES_URI + "/" + employee.getEmployeeId()));
+
+        //then
+        List<Employee> employeeList = employeeRepository.findAll();
+        Assertions.assertEquals(1, employeeList.size());
+    }
+
+
 }
