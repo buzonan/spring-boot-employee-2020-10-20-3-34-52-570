@@ -54,7 +54,6 @@ public class EmployeeServiceTests {
         when(employeeRepository.findById(employee.getEmployeeId())).thenReturn(java.util.Optional.of(updatedEmployee));
         when(employeeRepository.save(employee)).thenReturn(updatedEmployee);
         EmployeeService employeeService = new EmployeeService(employeeRepository);
-        //employeeService.createEmployee(employee);
 
         Employee actual = employeeService.updateEmployee(employee.getEmployeeId(), updatedEmployee);
 
