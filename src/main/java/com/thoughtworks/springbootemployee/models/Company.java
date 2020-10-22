@@ -10,8 +10,7 @@ public class Company {
     private int companyId;
     private String companyName;
     @OneToMany(
-            fetch = FetchType.EAGER,
-            orphanRemoval = true
+            fetch = FetchType.LAZY
     )
     @JoinColumn(columnDefinition = "company_Id")
     private List<Employee> employees;
