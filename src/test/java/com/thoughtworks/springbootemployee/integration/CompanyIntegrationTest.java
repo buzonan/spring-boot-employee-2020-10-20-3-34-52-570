@@ -100,4 +100,17 @@ public class CompanyIntegrationTest {
                 .andExpect(jsonPath("$[0].gender").value(employee.getGender()))
                 .andExpect(jsonPath("$[0].salary").value(employee.getSalary()));
     }
+
+    @Test
+    void should_return_specific_company_when_get_company_given_company_Id() throws Exception {
+        //given
+        Company company = companyRepository.save(new Company("SVG"));
+        companyRepository.save(new Company("Tata"));
+
+        //when
+        //then
+        mockMvc.perform(get(COMPANIES_URI +"/"+company.getCompanyId()))
+                .andExpect(jsonPath("$.companyId").isNumber())
+                .andExpect(jsonPath("$.companyName").value("SVG"));
+    }
 }
