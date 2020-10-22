@@ -2,11 +2,13 @@ package com.thoughtworks.springbootemployee.services;
 
 import com.thoughtworks.springbootemployee.models.Employee;
 import com.thoughtworks.springbootemployee.repositories.EmployeeRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
@@ -49,7 +51,7 @@ public class EmployeeService {
     }
 
     public List<Employee> getEmployeeByPage(int page, int pageSize) {
-        Pageable pageable = PageRequest.of(page,pageSize);
-        return employeeRepository.findAll(pageable).toList();
+        Page<Employee> employees = employeeRepository.findAll(PageRequest.of(page, pageSize));
+        return employees.toList();
     }
 }

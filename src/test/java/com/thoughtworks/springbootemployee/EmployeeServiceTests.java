@@ -6,14 +6,18 @@ import com.thoughtworks.springbootemployee.services.EmployeeService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 public class EmployeeServiceTests {
@@ -47,12 +51,14 @@ public class EmployeeServiceTests {
         Employee employee = new Employee(1,"Tom",18,"male",10000);
         Employee updatedEmployee = new Employee(1,"Tom",18,"male",12000);
 
+        when(employeeRepository.findById(employee.getEmployeeId())).thenReturn(java.util.Optional.of(updatedEmployee));
         when(employeeRepository.save(employee)).thenReturn(updatedEmployee);
         EmployeeService employeeService = new EmployeeService(employeeRepository);
+        //employeeService.createEmployee(employee);
 
-        Employee actual = employeeService.createEmployee(employee);
+        Employee actual = employeeService.updateEmployee(employee.getEmployeeId(), updatedEmployee);
 
-        assertEquals(updatedEmployee, actual);
+        assertNotEquals(employee.getSalary(), actual.getSalary());
     }
 
     @Test
@@ -71,7 +77,7 @@ public class EmployeeServiceTests {
     void should_return_employee_when_find_employee_given_employee_id() {
         EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
         Employee employee = new Employee(1,"Tom",18,"male",10000);
-        when(employeeRepository.findById(employee.getEmployeeId()).orElse(null)).thenReturn(employee);
+        when(employeeRepository.findById(employee.getEmployeeId())).thenReturn(java.util.Optional.of(employee));
         EmployeeService employeeService = new EmployeeService(employeeRepository);
 
         Employee foundEmployee = employeeService.findEmployee(employee.getEmployeeId());
@@ -106,11 +112,12 @@ public class EmployeeServiceTests {
                         new Employee(4,"Nibbles",18,"male",10000),
                         new Employee(5,"Liz",18,"female",10000)
                 );
-//        when(employeeRepository.findAll(1,5)).thenReturn(employees);
-        when(employeeRepository.findAll(PageRequest.of(1,5)).toList()).thenReturn(employees);
+        Pageable pageable = PageRequest.of(0,5);
+        Page<Employee> employeePage = new PageImpl<Employee>(employees);
+        when(employeeRepository.findAll(pageable)).thenReturn(employeePage);
         EmployeeService employeeService = new EmployeeService(employeeRepository);
 
-        List<Employee> pagedEmployees = employeeService.getEmployeeByPage(1,5);
+        List<Employee> pagedEmployees = employeeService.getEmployeeByPage(0,5);
 
         assertSame(employees.size(), pagedEmployees.size());
     }
