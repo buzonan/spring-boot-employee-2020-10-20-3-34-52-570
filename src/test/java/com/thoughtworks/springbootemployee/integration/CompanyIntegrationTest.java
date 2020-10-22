@@ -1,7 +1,9 @@
 package com.thoughtworks.springbootemployee.integration;
 
 import com.thoughtworks.springbootemployee.models.Company;
+import com.thoughtworks.springbootemployee.models.Employee;
 import com.thoughtworks.springbootemployee.repositories.CompanyRepository;
+import com.thoughtworks.springbootemployee.repositories.EmployeeRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class CompanyIntegrationTest {
     public static final String COMPANIES_URI = "/companies";
     @Autowired
     private CompanyRepository companyRepository;
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     @Autowired
     private MockMvc mockMvc;
@@ -77,5 +82,22 @@ public class CompanyIntegrationTest {
                 ).andExpect(status().isOk())
                 .andExpect(jsonPath("$.companyId").isNumber())
                 .andExpect(jsonPath("$.companyName").value("SVG"));
+    }
+
+    @Test
+    void should_return_employee_when_get_employees_by_company_given_company() throws Exception {
+        //given
+        Company company = companyRepository.save(new Company("SVG"));
+        Employee employee = employeeRepository.save(new Employee(1, "Tom", 18, "male",1000, company.getCompanyId()));
+
+
+        //when
+        //then
+        mockMvc.perform(get(COMPANIES_URI +"/"+company.getCompanyId()+"/employees"))
+                .andExpect(jsonPath("$[0].employeeId").isNumber())
+                .andExpect(jsonPath("$[0].name").value(employee.getName()))
+                .andExpect(jsonPath("$[0].age").value(employee.getAge()))
+                .andExpect(jsonPath("$[0].gender").value(employee.getGender()))
+                .andExpect(jsonPath("$[0].salary").value(employee.getSalary()));
     }
 }
