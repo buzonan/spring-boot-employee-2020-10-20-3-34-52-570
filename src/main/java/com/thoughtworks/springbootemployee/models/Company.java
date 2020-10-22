@@ -16,10 +16,8 @@ public class Company {
     @JoinColumn(columnDefinition = "company_Id")
     private List<Employee> employees;
 
-    public Company(int companyId, String companyName, List<Employee> employees) {
-        this.companyId = companyId;
+    public Company(String companyName) {
         this.companyName = companyName;
-        this.employees = employees;
     }
 
     public Company() { }

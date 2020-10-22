@@ -23,13 +23,18 @@ public class CompanyService {
     public List<Company> getAll() { return companyRepository.findAll();
     }
 
-    public Company createCompany(Company company) {
-        company.getEmployees()
+    public Company createCompany(Company companyResponseBody) {
+        Company company = new Company(companyResponseBody.getCompanyName());
+        Company savedCompany = companyRepository.save(company);
+        int savedCompanyId = savedCompany.getCompanyId();
+        companyResponseBody.getEmployees()
                 .stream()
                 .filter(employee -> !employeeRepository.findById(employee.getEmployeeId()).isPresent())
-                .forEach(employeeRepository::save);
-        companyRepository.save(company);
-        return companyRepository.save(company);
+                .forEach(employee -> {
+                        employee.setCompanyId(savedCompanyId);
+                        employeeRepository.save(employee);
+                });
+        return companyRepository.findById(savedCompanyId).orElse(null);
     }
 
     public Company findCompany(int companyId) {
