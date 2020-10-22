@@ -32,7 +32,7 @@ public class EmployeeController {
     }
 
     @GetMapping(params = "gender")
-    public List<Employee> getAllMaleEmployees(String gender){
+    public List<Employee> getEmployeesByGender(String gender){
         return employeeService.findEmployeesByGender(gender);
     }
 
