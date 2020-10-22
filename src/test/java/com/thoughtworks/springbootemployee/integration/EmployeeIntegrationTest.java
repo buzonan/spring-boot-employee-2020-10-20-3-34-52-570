@@ -20,6 +20,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class EmployeeIntegrationTest {
+
+
+    public static final String EMPLOYEES_URI = "/employees";
     @Autowired
     private EmployeeRepository employeeRepository;
 
@@ -39,7 +42,7 @@ public class EmployeeIntegrationTest {
 
         //when
         //then
-        mockMvc.perform(get("/employees"))
+        mockMvc.perform(get(EMPLOYEES_URI))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].employeeId").isNumber())
                 .andExpect(jsonPath("$[0].name").value("Tom"))
@@ -61,7 +64,7 @@ public class EmployeeIntegrationTest {
 
         //when
         //then
-        mockMvc.perform(post("/employees")
+        mockMvc.perform(post(EMPLOYEES_URI)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(employeeAsJson))
                 .andExpect(status().isCreated())
@@ -92,7 +95,7 @@ public class EmployeeIntegrationTest {
         Employee employee = employeeRepository.save(new Employee(1, "Chels", 18, "female",  1000));
 
         //then
-        mockMvc.perform(put("/employees/" + employee.getEmployeeId())
+        mockMvc.perform(put(EMPLOYEES_URI + "/" + employee.getEmployeeId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(updatedEmployee))
                 .andExpect(jsonPath("$.employeeId").isNumber())
@@ -115,7 +118,7 @@ public class EmployeeIntegrationTest {
 
         //when
         //then
-        mockMvc.perform(get("/employees/"+employee.getEmployeeId()))
+        mockMvc.perform(get(EMPLOYEES_URI +"/"+employee.getEmployeeId()))
                 .andExpect(jsonPath("$.employeeId").isNumber())
                 .andExpect(jsonPath("$.name").value(employee.getName()))
                 .andExpect(jsonPath("$.age").value(employee.getAge()))
@@ -125,5 +128,45 @@ public class EmployeeIntegrationTest {
         List<Employee> employeeList = employeeRepository.findAll();
         Assertions.assertEquals(2, employeeList.size());
         Assertions.assertEquals("Chels", employeeList.get(0).getName());
+    }
+
+    @Test
+    void should_return_all_male_employees_when_get_employee_given_gender_male() throws Exception {
+        //given
+        Employee employee = employeeRepository.save(new Employee(3, "Tom", 22, "male",  5000));
+        employeeRepository.save(new Employee(4, "Alice", 18, "female",  1000));
+
+        //when
+        //then
+        mockMvc.perform(get(EMPLOYEES_URI +"?gender="+employee.getGender()))
+                .andExpect(jsonPath("$[0].employeeId").isNumber())
+                .andExpect(jsonPath("$[0].name").value(employee.getName()))
+                .andExpect(jsonPath("$[0].age").value(employee.getAge()))
+                .andExpect(jsonPath("$[0].gender").value(employee.getGender()))
+                .andExpect(jsonPath("$[0].salary").value(employee.getSalary()));
+
+        List<Employee> employeeList = employeeRepository.findAll();
+        Assertions.assertEquals(2, employeeList.size());
+        Assertions.assertEquals("male", employeeList.get(0).getGender());
+    }
+
+    @Test
+    void should_return_all_female_employees_when_get_employee_given_gender_female() throws Exception {
+        //given
+        Employee employee = employeeRepository.save(new Employee(4, "Alice", 22, "female",  5000));
+        employeeRepository.save(new Employee(5, "Tom", 18, "male",  1000));
+
+        //when
+        //then
+        mockMvc.perform(get(EMPLOYEES_URI +"?gender="+employee.getGender()))
+                .andExpect(jsonPath("$[0].employeeId").isNumber())
+                .andExpect(jsonPath("$[0].name").value(employee.getName()))
+                .andExpect(jsonPath("$[0].age").value(employee.getAge()))
+                .andExpect(jsonPath("$[0].gender").value(employee.getGender()))
+                .andExpect(jsonPath("$[0].salary").value(employee.getSalary()));
+
+        List<Employee> employeeList = employeeRepository.findAll();
+        Assertions.assertEquals(2, employeeList.size());
+        Assertions.assertEquals("female", employeeList.get(0).getGender());
     }
 }
