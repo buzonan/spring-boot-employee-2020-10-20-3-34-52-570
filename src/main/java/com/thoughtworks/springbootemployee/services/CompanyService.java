@@ -16,7 +16,7 @@ public class CompanyService {
     }
 
     public List<Company> getAll() {
-        return updateEmployeeCounts(companyRepository.findAll());
+        return companyRepository.findAll();
     }
 
     public Company createCompany(Company expectedCompany) {
@@ -45,13 +45,14 @@ public class CompanyService {
         companyRepository.deleteEmployees(companyID);
     }
 
-    public List<Company> updateEmployeeCounts(List<Company> companies){
+    private List<Company> updateEmployeeCounts(List<Company> companies){
         companies.forEach(Company::updateEmployeeCount);
         return companies;
     }
 
-    public Company updateEmployeeCount(Company company){
+    private Company updateEmployeeCount(Company company){
         company.updateEmployeeCount();
+        companyRepository.addCompany(company);
         return company;
     }
 }
