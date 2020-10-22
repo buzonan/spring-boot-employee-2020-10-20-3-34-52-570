@@ -41,7 +41,7 @@ public class CompanyService {
         return companyRepository.findById(companyId).orElse(null);
     }
 
-    public List<Employee> findEmployeeBycompanyId(int companyId) {
+    public List<Employee> findEmployeeByCompanyId(int companyId) {
         return employeeRepository.findByCompanyId(companyId);
     }
 
