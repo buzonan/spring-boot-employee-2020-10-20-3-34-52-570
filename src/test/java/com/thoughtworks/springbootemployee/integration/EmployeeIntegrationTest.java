@@ -49,7 +49,7 @@ public class EmployeeIntegrationTest {
     }
 
     @Test
-    void should_create_employee_when_create_give_employee_request() throws Exception {
+    void should_create_employee_when_create_given_employee_request() throws Exception {
         //given
         String employeeAsJson = "{\n" +
                 "\"name\": \"Chels\",\n" +
@@ -78,7 +78,7 @@ public class EmployeeIntegrationTest {
     }
 
     @Test
-    void should_update_employee_when_update_give_employeeId_and_updatedEmployee() throws Exception {
+    void should_update_employee_when_update_given_employeeId_and_updatedEmployee() throws Exception {
         //given
         String updatedEmployee = "{\n" +
                 "\"name\": \"Chelsie\",\n" +
@@ -105,5 +105,25 @@ public class EmployeeIntegrationTest {
         List<Employee> employeeList = employeeRepository.findAll();
         Assertions.assertEquals(1, employeeList.size());
         Assertions.assertEquals("Chelsie", employeeList.get(0).getName());
+    }
+
+    @Test
+    void should_return_employee_when_get_employee_given_employee_Id() throws Exception {
+        //given
+        Employee employee = employeeRepository.save(new Employee(1, "Chels", 18, "female",  1000));
+        employeeRepository.save(new Employee(2, "Chelsie", 181, "male",  1000));
+
+        //when
+        //then
+        mockMvc.perform(get("/employees/"+employee.getEmployeeId()))
+                .andExpect(jsonPath("$.employeeId").isNumber())
+                .andExpect(jsonPath("$.name").value(employee.getName()))
+                .andExpect(jsonPath("$.age").value(employee.getAge()))
+                .andExpect(jsonPath("$.gender").value(employee.getGender()))
+                .andExpect(jsonPath("$.salary").value(employee.getSalary()));
+
+        List<Employee> employeeList = employeeRepository.findAll();
+        Assertions.assertEquals(2, employeeList.size());
+        Assertions.assertEquals("Chels", employeeList.get(0).getName());
     }
 }
