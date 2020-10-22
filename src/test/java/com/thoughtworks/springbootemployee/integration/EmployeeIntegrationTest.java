@@ -13,8 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -76,5 +75,35 @@ public class EmployeeIntegrationTest {
         List<Employee> employee = employeeRepository.findAll();
         Assertions.assertEquals(1, employee.size());
         Assertions.assertEquals("Chels", employee.get(0).getName());
+    }
+
+    @Test
+    void should_update_employee_when_update_give_employeeId_and_updatedEmployee() throws Exception {
+        //given
+        String updatedEmployee = "{\n" +
+                "\"name\": \"Chelsie\",\n" +
+                "\"age\": 18,\n" +
+                "\"gender\": \"female\",\n" +
+                "\"salary\": 1000,\n" +
+                "\"companyId\": 0\n" +
+                "}";
+
+        //when
+        Employee employee = employeeRepository.save(new Employee(1, "Chels", 18, "female",  1000));
+
+        //then
+        mockMvc.perform(put("/employees/" + employee.getEmployeeId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(updatedEmployee))
+                .andExpect(jsonPath("$.employeeId").isNumber())
+                .andExpect(jsonPath("$.name").value("Chelsie"))
+                .andExpect(jsonPath("$.age").value(18))
+                .andExpect(jsonPath("$.gender").value("female"))
+                .andExpect(jsonPath("$.salary").value(1000))
+                .andExpect(jsonPath("$.companyId").value(0));
+
+        List<Employee> employeeList = employeeRepository.findAll();
+        Assertions.assertEquals(1, employeeList.size());
+        Assertions.assertEquals("Chelsie", employeeList.get(0).getName());
     }
 }
