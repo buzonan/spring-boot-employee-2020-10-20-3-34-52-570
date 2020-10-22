@@ -22,7 +22,7 @@ public class EmployeeRepositoryLegacy {
 
     public void updateEmployee(int employeeID, Employee updatedEmployee) {
         employeeList.stream()
-                .filter(employee -> employee.getEmployeeID() == employeeID)
+                .filter(employee -> employee.getEmployeeId() == employeeID)
                 .findFirst()
                 .ifPresent(employee -> {
                     employeeList.remove(employee);
@@ -32,14 +32,14 @@ public class EmployeeRepositoryLegacy {
 
     public void deleteEmployee(int employeeID) {
         employeeList.stream()
-                .filter(employee -> employee.getEmployeeID() == employeeID)
+                .filter(employee -> employee.getEmployeeId() == employeeID)
                 .findFirst()
                 .ifPresent(employeeList::remove);
     }
 
     public Employee findEmployeeByID(int employeeID) {
         return employeeList.stream()
-                .filter(employee -> employee.getEmployeeID() == employeeID)
+                .filter(employee -> employee.getEmployeeId() == employeeID)
                 .findFirst()
                 .orElse(null);
     }

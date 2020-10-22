@@ -9,29 +9,29 @@ import javax.persistence.Id;
 public class Employee {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private int employeeID;
+    private int employeeId;
     private String name;
     private int age;
     private String gender;
     private int salary;
-    private int companyID;
+    private int companyId;
 
     public Employee(){}
 
-    public Employee(int employeeID, String name, int age, String gender, int salary) {
-        this.employeeID = employeeID;
+    public Employee(int employeeId, String name, int age, String gender, int salary) {
+        this.employeeId = employeeId;
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.salary = salary;
     }
 
-    public int getEmployeeID() {
-        return employeeID;
+    public int getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEmployeeID(int employeeID) {
-        this.employeeID = employeeID;
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String getName() {
@@ -66,11 +66,11 @@ public class Employee {
         this.salary = salary;
     }
 
-    public int getCompanyID() {
-        return companyID;
+    public int getCompanyId() {
+        return companyId;
     }
 
-    public void setCompanyID(int companyID) {
-        this.companyID = companyID;
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
     }
 }

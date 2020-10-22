@@ -38,7 +38,7 @@ public class EmployeeServiceTests {
 
         Employee actualEmployee = employeeService.createEmployee(expectedEmployee);
 
-        assertEquals(expectedEmployee.getEmployeeID(), actualEmployee.getEmployeeID());
+        assertEquals(expectedEmployee.getEmployeeId(), actualEmployee.getEmployeeId());
     }
 
     @Test
@@ -50,9 +50,9 @@ public class EmployeeServiceTests {
         when(employeeRepositoryLegacy.addEmployee(employee)).thenReturn(updatedEmployee);
         EmployeeService employeeService = new EmployeeService(employeeRepositoryLegacy);
 
-        employeeService.updateEmployee(employee.getEmployeeID(), updatedEmployee);
+        employeeService.updateEmployee(employee.getEmployeeId(), updatedEmployee);
 
-        Mockito.verify(employeeRepositoryLegacy).updateEmployee(employee.getEmployeeID(), updatedEmployee);
+        Mockito.verify(employeeRepositoryLegacy).updateEmployee(employee.getEmployeeId(), updatedEmployee);
     }
 
     @Test
@@ -62,19 +62,19 @@ public class EmployeeServiceTests {
         when(employeeRepositoryLegacy.addEmployee(employee)).thenReturn(employee);
         EmployeeService employeeService = new EmployeeService(employeeRepositoryLegacy);
 
-        employeeService.deleteEmployee(employee.getEmployeeID());
+        employeeService.deleteEmployee(employee.getEmployeeId());
 
-        Mockito.verify(employeeRepositoryLegacy).deleteEmployee(employee.getEmployeeID());
+        Mockito.verify(employeeRepositoryLegacy).deleteEmployee(employee.getEmployeeId());
     }
 
     @Test
     void should_return_employee_when_find_employee_given_employee_id() {
         EmployeeRepositoryLegacy employeeRepositoryLegacy = Mockito.mock(EmployeeRepositoryLegacy.class);
         Employee employee = new Employee(1,"Tom",18,"male",10000);
-        when(employeeRepositoryLegacy.findEmployeeByID(employee.getEmployeeID())).thenReturn(employee);
+        when(employeeRepositoryLegacy.findEmployeeByID(employee.getEmployeeId())).thenReturn(employee);
         EmployeeService employeeService = new EmployeeService(employeeRepositoryLegacy);
 
-        Employee foundEmployee = employeeService.findEmployee(employee.getEmployeeID());
+        Employee foundEmployee = employeeService.findEmployee(employee.getEmployeeId());
 
         assertSame(employee, foundEmployee);
     }
