@@ -92,7 +92,7 @@ public class EmployeeIntegrationTest {
                 "}";
 
         //when
-        Employee employee = employeeRepository.save(new Employee(1, "Chels", 18, "female",  1000));
+        Employee employee = employeeRepository.save(new Employee(2, "Chels", 18, "female",  1000));
 
         //then
         mockMvc.perform(put(EMPLOYEES_URI + "/" + employee.getEmployeeId())
@@ -113,8 +113,8 @@ public class EmployeeIntegrationTest {
     @Test
     void should_return_employee_when_get_employee_given_employee_Id() throws Exception {
         //given
-        Employee employee = employeeRepository.save(new Employee(1, "Chels", 18, "female",  1000));
-        employeeRepository.save(new Employee(2, "Chelsie", 181, "male",  1000));
+        Employee employee = employeeRepository.save(new Employee(3, "Chels", 18, "female",  1000));
+        employeeRepository.save(new Employee(4, "Chelsie", 181, "male",  1000));
 
         //when
         //then
@@ -133,8 +133,8 @@ public class EmployeeIntegrationTest {
     @Test
     void should_return_all_male_employees_when_get_employee_given_gender_male() throws Exception {
         //given
-        Employee employee = employeeRepository.save(new Employee(3, "Tom", 22, "male",  5000));
-        employeeRepository.save(new Employee(4, "Alice", 18, "female",  1000));
+        Employee employee = employeeRepository.save(new Employee(5, "Tom", 22, "male",  5000));
+        employeeRepository.save(new Employee(6, "Alice", 18, "female",  1000));
 
         //when
         //then
@@ -153,8 +153,8 @@ public class EmployeeIntegrationTest {
     @Test
     void should_return_all_female_employees_when_get_employee_given_gender_female() throws Exception {
         //given
-        Employee employee = employeeRepository.save(new Employee(4, "Alice", 22, "female",  5000));
-        employeeRepository.save(new Employee(5, "Tom", 18, "male",  1000));
+        Employee employee = employeeRepository.save(new Employee(7, "Alice", 22, "female",  5000));
+        employeeRepository.save(new Employee(8, "Tom", 18, "male",  1000));
 
         //when
         //then
@@ -173,8 +173,8 @@ public class EmployeeIntegrationTest {
     @Test
     void should_delete_employee_when_delete_employee_given_employee_id() throws Exception {
         //given
-        Employee employee = employeeRepository.save(new Employee(4, "Alice", 22, "female",  5000));
-        employeeRepository.save(new Employee(5, "Tom", 18, "male",  1000));
+        Employee employee = employeeRepository.save(new Employee(9, "Alice", 22, "female",  5000));
+        employeeRepository.save(new Employee(10, "Tom", 18, "male",  1000));
 
         //when
         mockMvc.perform(delete(EMPLOYEES_URI + "/" + employee.getEmployeeId()));
@@ -184,5 +184,21 @@ public class EmployeeIntegrationTest {
         Assertions.assertEquals(1, employeeList.size());
     }
 
+    @Test
+    void should_return_employees_page_when_get_employee_given_page_1_pageSize_2() throws Exception {
+        //given
+        employeeRepository.save(new Employee(1, "Alice1", 21, "female",  5000));
+        employeeRepository.save(new Employee(2, "Alice2", 22, "female",  5000));
+        employeeRepository.save(new Employee(3, "Alice3", 23, "female",  5000));
+        employeeRepository.save(new Employee(4, "Alice4", 24, "female",  5000));
+        employeeRepository.save(new Employee(5, "Alice5", 25, "female",  5000));
 
+        int page = 1, pageSize = 2;
+
+        //when
+        //then
+        mockMvc.perform(get(EMPLOYEES_URI + "?page="+page+"&pageSize="+pageSize))
+                .andExpect(jsonPath("$.length()").value(2))
+                .andExpect(jsonPath("$[0].name").value("Alice3"));
+    }
 }
