@@ -10,8 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -61,4 +60,22 @@ public class CompanyIntegrationTest {
                 .andExpect(jsonPath("$.companyName").value("SVG"));
     }
 
+    @Test
+    void should_update_company_when_update_given_company_Id_and_updated_company() throws Exception {
+        //given
+        String companyAsJson = "{\n" +
+                "    \"companyName\" : \"SVG\"\n" +
+                "}";
+
+        Company existingCompany = companyRepository.save(new Company("Tata"));
+
+        //when
+        //then
+        mockMvc.perform(put(COMPANIES_URI + "/" + existingCompany.getCompanyId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(companyAsJson)
+                ).andExpect(status().isOk())
+                .andExpect(jsonPath("$.companyId").isNumber())
+                .andExpect(jsonPath("$.companyName").value("SVG"));
+    }
 }
