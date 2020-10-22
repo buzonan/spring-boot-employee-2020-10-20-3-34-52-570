@@ -113,4 +113,22 @@ public class CompanyIntegrationTest {
                 .andExpect(jsonPath("$.companyId").isNumber())
                 .andExpect(jsonPath("$.companyName").value("SVG"));
     }
+
+    @Test
+    void should_return_company_page_when_get_company_given_page_1_pageSize_2() throws Exception {
+        //given
+        companyRepository.save(new Company("SVG"));
+        companyRepository.save(new Company("Tata"));
+        companyRepository.save(new Company("Toyota"));
+        companyRepository.save(new Company("Mitsubishi"));
+        companyRepository.save(new Company("Renault"));
+
+        int page = 1, pageSize = 2;
+
+        //when
+        //then
+        mockMvc.perform(get(COMPANIES_URI + "?page="+page+"&pageSize="+pageSize))
+                .andExpect(jsonPath("$.length()").value(2));
+    }
+
 }
