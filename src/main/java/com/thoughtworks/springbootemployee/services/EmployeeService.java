@@ -1,45 +1,45 @@
 package com.thoughtworks.springbootemployee.services;
 
 import com.thoughtworks.springbootemployee.models.Employee;
-import com.thoughtworks.springbootemployee.repositories.EmployeeRepository;
+import com.thoughtworks.springbootemployee.repositories.EmployeeRepositoryLegacy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class EmployeeService {
-    private final EmployeeRepository employeeRepository;
+    private final EmployeeRepositoryLegacy employeeRepositoryLegacy;
 
-    public EmployeeService(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
+    public EmployeeService(EmployeeRepositoryLegacy employeeRepositoryLegacy) {
+        this.employeeRepositoryLegacy = employeeRepositoryLegacy;
     }
 
     public List<Employee> getAll() {
-        return employeeRepository.findAll();
+        return employeeRepositoryLegacy.findAll();
     }
 
     public Employee createEmployee(Employee employee) {
-        employeeRepository.addEmployee(employee);
+        employeeRepositoryLegacy.addEmployee(employee);
         return employee;
     }
 
     public void updateEmployee(int employeeID, Employee updatedEmployee) {
-        employeeRepository.updateEmployee(employeeID, updatedEmployee);
+        employeeRepositoryLegacy.updateEmployee(employeeID, updatedEmployee);
     }
 
     public void deleteEmployee(int employeeID) {
-        employeeRepository.deleteEmployee(employeeID);
+        employeeRepositoryLegacy.deleteEmployee(employeeID);
     }
 
     public Employee findEmployee(int employeeID) {
-        return employeeRepository.findEmployeeByID(employeeID);
+        return employeeRepositoryLegacy.findEmployeeByID(employeeID);
     }
 
     public List<Employee> findEmployeesByGender(String gender) {
-        return employeeRepository.findEmployeesByGender(gender);
+        return employeeRepositoryLegacy.findEmployeesByGender(gender);
     }
 
     public List<Employee> pagination(int page, int pageSize) {
-        return employeeRepository.pagination(page, pageSize);
+        return employeeRepositoryLegacy.pagination(page, pageSize);
     }
 }
