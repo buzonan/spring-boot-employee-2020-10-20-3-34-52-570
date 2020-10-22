@@ -93,9 +93,8 @@ public class CompanyServiceTests {
                 new Company(5,"Sega",employees));
 
         Pageable pageable = PageRequest.of(1,5);
-        Page<Company> companyPage = new PageImpl<Company>(companies);
+        Page<Company> companyPage = new PageImpl<>(companies);
         when(companyRepository.findAll(pageable)).thenReturn(companyPage);
-        //when(companyRepository.findAll(PageRequest.of(1,5)).toList()).thenReturn(companies);
         CompanyService companyService = new CompanyService(companyRepository, employeeRepository);
 
         List<Company> actual = companyService.getCompanyByPage(1, 5);

@@ -5,22 +5,20 @@ import com.thoughtworks.springbootemployee.repositories.EmployeeRepository;
 import com.thoughtworks.springbootemployee.services.EmployeeService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 public class EmployeeServiceTests {
+
     @Test
     void should_return_all_employees_when_get_all_employees_given() {
         EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
@@ -112,7 +110,7 @@ public class EmployeeServiceTests {
                         new Employee(5,"Liz",18,"female",10000)
                 );
         Pageable pageable = PageRequest.of(0,5);
-        Page<Employee> employeePage = new PageImpl<Employee>(employees);
+        Page<Employee> employeePage = new PageImpl<>(employees);
         when(employeeRepository.findAll(pageable)).thenReturn(employeePage);
         EmployeeService employeeService = new EmployeeService(employeeRepository);
 
