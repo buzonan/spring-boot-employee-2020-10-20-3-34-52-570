@@ -4,6 +4,7 @@ import com.thoughtworks.springbootemployee.models.Company;
 import com.thoughtworks.springbootemployee.models.Employee;
 import com.thoughtworks.springbootemployee.repositories.CompanyRepository;
 import com.thoughtworks.springbootemployee.repositories.EmployeeRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,11 @@ public class CompanyService {
     }
 
     public Company createCompany(Company company) {
+        company.getEmployees()
+                .stream()
+                .filter(employee -> !employeeRepository.findById(employee.getEmployeeId()).isPresent())
+                .forEach(employeeRepository::save);
+        companyRepository.save(company);
         return companyRepository.save(company);
     }
 
@@ -36,8 +42,8 @@ public class CompanyService {
     }
 
     public List<Company> getCompanyByPage(int page, int pageSize) {
-        Pageable pageable = PageRequest.of(page,pageSize);
-        return companyRepository.findAll(pageable).toList();
+        Page<Company> companies = companyRepository.findAll(PageRequest.of(page, pageSize));
+        return companies.toList();
     }
 
     public Company updateCompany(int companyId, Company updatedCompany) {

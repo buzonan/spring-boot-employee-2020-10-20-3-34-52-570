@@ -25,14 +25,14 @@ public class CompanyRepositoryLegacy {
 
     public Company findCompany(int companyID) {
         return companies.stream()
-                .filter(company -> company.getCompanyID() == companyID)
+                .filter(company -> company.getCompanyId() == companyID)
                 .findFirst()
                 .orElse(null);
     }
 
     public List<Employee> findEmployeeByCompanyID(int companyID) {
         return Objects.requireNonNull(companies.stream()
-                .filter(company -> company.getCompanyID() == companyID)
+                .filter(company -> company.getCompanyId() == companyID)
                 .findFirst()
                 .orElse(null))
                 .getEmployees();
@@ -41,7 +41,7 @@ public class CompanyRepositoryLegacy {
     public List<Company> pagination(int page, int pageSize) {
         int pageSkip = (page-1) * pageSize;
         return companies.stream()
-                .sorted(Comparator.comparing(Company::getCompanyID))
+                .sorted(Comparator.comparing(Company::getCompanyId))
                 .skip(pageSkip)
                 .limit(pageSize)
                 .collect(Collectors.toList());
@@ -49,7 +49,7 @@ public class CompanyRepositoryLegacy {
 
     public void updateCompany(int companyID, Company updatedCompany) {
         companies.stream()
-                .filter(company -> company.getCompanyID() == companyID)
+                .filter(company -> company.getCompanyId() == companyID)
                 .findFirst()
                 .ifPresent(company -> {
                     companies.remove(company);
@@ -59,7 +59,7 @@ public class CompanyRepositoryLegacy {
 
     public void deleteEmployees(int companyID) {
         companies.stream()
-                .filter(company -> company.getCompanyID() == companyID)
+                .filter(company -> company.getCompanyId() == companyID)
                 .findFirst()
                 .ifPresent(company -> company.getEmployees().clear());
     }

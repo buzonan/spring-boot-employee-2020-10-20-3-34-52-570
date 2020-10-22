@@ -7,24 +7,25 @@ import java.util.List;
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int companyID;
+    private int companyId;
     private String companyName;
     @OneToMany(
-        orphanRemoval = true
+            fetch = FetchType.EAGER,
+            orphanRemoval = true
     )
-    @JoinColumn(columnDefinition = "company_id")
+    @JoinColumn(columnDefinition = "company_Id")
     private List<Employee> employees;
 
-    public Company(int companyID, String companyName, List<Employee> employees) {
-        this.companyID = companyID;
+    public Company(int companyId, String companyName, List<Employee> employees) {
+        this.companyId = companyId;
         this.companyName = companyName;
         this.employees = employees;
     }
 
     public Company() { }
 
-    public int getCompanyID() {
-        return companyID;
+    public int getCompanyId() {
+        return companyId;
     }
 
     public String getCompanyName() {
