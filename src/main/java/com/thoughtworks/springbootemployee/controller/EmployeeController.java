@@ -22,8 +22,14 @@ public class EmployeeController {
     }
 
     @GetMapping("/{employeeID}")
-    public Employee getEmployee(@PathVariable int employeeID){
+    public Employee getEmployee(@PathVariable int employeeID)
+    {
         return employeeService.findEmployee(employeeID);
+//        try {
+//            return new ResponseEntity<>(employeeService.findEmployee(employeeID), HttpStatus.OK);
+//        }catch (NullPointerException exception){
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
     }
 
     @GetMapping(params = {"page","pageSize"})
