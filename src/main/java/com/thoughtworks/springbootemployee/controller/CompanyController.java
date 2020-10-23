@@ -50,13 +50,16 @@ public class CompanyController {
     }
 
     @GetMapping(params = {"page","pageSize"})
-    public List<Company> getPagedCompanies(int page, int pageSize){
-        return companyService.getCompanyByPage(page, pageSize);
+    public List<CompanyResponse> getPagedCompanies(int page, int pageSize){
+        List<Company> companies = companyService.getCompanyByPage(page, pageSize);
+        return companies.stream().map(companyMapper::toResponse).collect(Collectors.toList());
     }
 
-    @PutMapping("/{companyId}")
-    public Company updateCompany(@PathVariable int companyId, @RequestBody Company newCompany){
-        return companyService.updateCompany(companyId, newCompany);
+    @PatchMapping("/{companyId}")
+    public CompanyResponse updateCompany(@PathVariable int companyId, @RequestBody CompanyRequest request){
+        Company company = companyMapper.toEntity(request);
+        Company updatedCompany = companyService.updateCompany(companyId, company);
+        return companyMapper.toResponse(updatedCompany);
     }
 
     @DeleteMapping("/{companyId}")

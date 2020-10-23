@@ -52,7 +52,7 @@ public class CompanyService {
         company.setCompanyName(newCompany.getCompanyName());
         company.setEmployees(newCompany.getEmployees());
         companyRepository.save(company);
-        return newCompany;
+        return company;
     }
 
     private void validateCompany(Company company) {
