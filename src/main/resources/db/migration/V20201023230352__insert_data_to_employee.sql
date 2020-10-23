@@ -1,0 +1,15 @@
+insert into employee(name, age, gender, salary, company_id) values ('Tom Cat', 15, 'male', 3500, 1);
+insert into employee(name, age, gender, salary, company_id) values ('Jerry Mouse', 14, 'male', 5000, 1);
+insert into employee(name, age, gender, salary, company_id) values ('Mammy Two Shoes', 13, 'female', 3000, 1);
+insert into employee(name, age, gender, salary, company_id) values ('Quacker', 10, 'female', 1000, 1);
+insert into employee(name, age, gender, salary, company_id) values ('Topsey', 8, 'male', 2000, 1);
+insert into employee(name, age, gender, salary, company_id) values ('Woody', 22, 'male', 2000, 2);
+insert into employee(name, age, gender, salary, company_id) values ('Wall-E', 12, 'male', 2000, 2);
+insert into employee(name, age, gender, salary, company_id) values ('Mater', 43, 'male', 2000, 2);
+insert into employee(name, age, gender, salary, company_id) values ('Nemo', 52, 'male', 2000, 2);
+insert into employee(name, age, gender, salary, company_id) values ('Dory', 12, 'male', 2000, 2);
+insert into employee(name, age, gender, salary, company_id) values ('Shrek', 30, 'male', 2000, 3);
+insert into employee(name, age, gender, salary, company_id) values ('Fiona', 25, 'male', 2000, 3);
+insert into employee(name, age, gender, salary, company_id) values ('Donkey', 44, 'male', 2000, 3);
+insert into employee(name, age, gender, salary, company_id) values ('Po', 34, 'male', 2000, 3);
+insert into employee(name, age, gender, salary, company_id) values ('Shifu', 65, 'male', 2000, 3);
