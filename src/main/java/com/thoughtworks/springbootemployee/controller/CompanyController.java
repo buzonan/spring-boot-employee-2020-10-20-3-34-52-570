@@ -1,10 +1,12 @@
 package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.mapper.CompanyMapper;
+import com.thoughtworks.springbootemployee.mapper.EmployeeMapper;
 import com.thoughtworks.springbootemployee.models.company.Company;
 import com.thoughtworks.springbootemployee.models.company.CompanyRequest;
 import com.thoughtworks.springbootemployee.models.company.CompanyResponse;
 import com.thoughtworks.springbootemployee.models.employee.Employee;
+import com.thoughtworks.springbootemployee.models.employee.EmployeeResponse;
 import com.thoughtworks.springbootemployee.services.CompanyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +19,12 @@ import java.util.stream.Collectors;
 public class CompanyController {
     private final CompanyService companyService;
     private final CompanyMapper companyMapper;
+    private final EmployeeMapper employeeMapper;
 
-    public CompanyController(CompanyService companyService, CompanyMapper companyMapper) {
+    public CompanyController(CompanyService companyService, CompanyMapper companyMapper, EmployeeMapper employeeMapper) {
         this.companyService = companyService;
         this.companyMapper = companyMapper;
+        this.employeeMapper = employeeMapper;
     }
 
     @GetMapping()
@@ -44,9 +48,9 @@ public class CompanyController {
     }
 
     @GetMapping("/{companyId}/employees")
-    public List<Employee> getEmployeesByCompanyID(@PathVariable int companyId){
-        return companyService.findEmployeeByCompanyId(companyId);
-
+    public List<EmployeeResponse> getEmployeesByCompanyID(@PathVariable int companyId){
+        List<Employee> employeeList = companyService.findEmployeeByCompanyId(companyId);
+        return employeeList.stream().map(employeeMapper::toResponse).collect(Collectors.toList());
     }
 
     @GetMapping(params = {"page","pageSize"})
