@@ -2,8 +2,8 @@ package com.thoughtworks.springbootemployee.services;
 
 import com.thoughtworks.springbootemployee.exception.CompanyNotFoundException;
 import com.thoughtworks.springbootemployee.exception.InvalidCompanyException;
-import com.thoughtworks.springbootemployee.models.Company;
-import com.thoughtworks.springbootemployee.models.Employee;
+import com.thoughtworks.springbootemployee.models.company.Company;
+import com.thoughtworks.springbootemployee.models.employee.Employee;
 import com.thoughtworks.springbootemployee.repositories.CompanyRepository;
 import com.thoughtworks.springbootemployee.repositories.EmployeeRepository;
 import org.springframework.data.domain.Page;
@@ -56,7 +56,6 @@ public class CompanyService {
     }
 
     private void validateCompany(Company company) {
-        findCompany(company.getCompanyId());
         if(isNull(company.getCompanyName())){
             throw new InvalidCompanyException("Invalid Company");
         }

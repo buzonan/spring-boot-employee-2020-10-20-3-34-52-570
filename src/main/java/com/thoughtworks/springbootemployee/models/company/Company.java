@@ -1,4 +1,6 @@
-package com.thoughtworks.springbootemployee.models;
+package com.thoughtworks.springbootemployee.models.company;
+
+import com.thoughtworks.springbootemployee.models.employee.Employee;
 
 import javax.persistence.*;
 import java.util.List;

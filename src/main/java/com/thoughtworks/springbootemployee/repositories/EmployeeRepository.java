@@ -1,6 +1,6 @@
 package com.thoughtworks.springbootemployee.repositories;
 
-import com.thoughtworks.springbootemployee.models.Employee;
+import com.thoughtworks.springbootemployee.models.employee.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

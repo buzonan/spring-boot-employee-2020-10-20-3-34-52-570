@@ -1,6 +1,6 @@
 package com.thoughtworks.springbootemployee.controller;
 
-import com.thoughtworks.springbootemployee.models.Employee;
+import com.thoughtworks.springbootemployee.models.employee.Employee;
 import com.thoughtworks.springbootemployee.services.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -25,11 +25,6 @@ public class EmployeeController {
     public Employee getEmployee(@PathVariable int employeeID)
     {
         return employeeService.findEmployee(employeeID);
-//        try {
-//            return new ResponseEntity<>(employeeService.findEmployee(employeeID), HttpStatus.OK);
-//        }catch (NullPointerException exception){
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
     }
 
     @GetMapping(params = {"page","pageSize"})

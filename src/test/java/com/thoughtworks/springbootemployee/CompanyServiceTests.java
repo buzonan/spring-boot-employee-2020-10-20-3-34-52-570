@@ -1,7 +1,7 @@
 package com.thoughtworks.springbootemployee;
 
-import com.thoughtworks.springbootemployee.models.Company;
-import com.thoughtworks.springbootemployee.models.Employee;
+import com.thoughtworks.springbootemployee.models.company.Company;
+import com.thoughtworks.springbootemployee.models.employee.Employee;
 import com.thoughtworks.springbootemployee.repositories.CompanyRepository;
 import com.thoughtworks.springbootemployee.repositories.EmployeeRepository;
 import com.thoughtworks.springbootemployee.services.CompanyService;

@@ -1,7 +1,7 @@
 package com.thoughtworks.springbootemployee.repositories.legacy;
 
-import com.thoughtworks.springbootemployee.models.Company;
-import com.thoughtworks.springbootemployee.models.Employee;
+import com.thoughtworks.springbootemployee.models.company.Company;
+import com.thoughtworks.springbootemployee.models.employee.Employee;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
