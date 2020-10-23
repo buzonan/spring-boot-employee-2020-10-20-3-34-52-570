@@ -32,20 +32,21 @@ public class CompanyController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public CompanyResponse create(@RequestBody CompanyRequest request){
-        Company company = new Company();
-        company.setCompanyName(request.getCompanyName());
-        Company savedCompany = companyService.createCompany(company);
-        return companyMapper.toResponse(savedCompany);
+        Company company = companyMapper.toEntity(request);
+        companyService.createCompany(company);
+        return companyMapper.toResponse(company);
     }
 
     @GetMapping("/{companyId}")
-    public Company getCompany(@PathVariable int companyId){
-        return companyService.findCompany(companyId);
+    public CompanyResponse getCompany(@PathVariable int companyId){
+        Company company = companyService.findCompany(companyId);
+        return companyMapper.toResponse(company);
     }
 
     @GetMapping("/{companyId}/employees")
     public List<Employee> getEmployeesByCompanyID(@PathVariable int companyId){
         return companyService.findEmployeeByCompanyId(companyId);
+
     }
 
     @GetMapping(params = {"page","pageSize"})
